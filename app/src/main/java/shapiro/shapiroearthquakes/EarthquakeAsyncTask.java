@@ -13,18 +13,18 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class EarthquakeAsyncTask extends AsyncTask<Long, String, String>  {
+public class EarthquakeAsyncTask extends AsyncTask<String, String, AllEarthquakes>  {
 
     private RecyclerView recyclerView;
-    private EarthquakeList earthquakes;
+    private AllEarthquakes earthquakes;
 
     public EarthquakeAsyncTask(RecyclerView recyclerView) {
         this.recyclerView = recyclerView;
         this.earthquakes = null;
     }
 
-    @Override
-    protected String doInBackground(Long... params) {
+
+    protected AllEarthquakes doInBackground(String... params) {
         Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .create();
@@ -35,17 +35,17 @@ public class EarthquakeAsyncTask extends AsyncTask<Long, String, String>  {
 
             InputStream in = connection.getInputStream();
 
-            earthquakes = gson.fromJson(new InputStreamReader(in), EarthquakeList.class);
+            earthquakes = gson.fromJson(new InputStreamReader(in), AllEarthquakes.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return null;
+        return earthquakes;
     }
 
-    @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
+
+    protected void onPostExecute(AllEarthquakes earthquakes) {
+        super.onPostExecute(earthquakes);
         EarthquakeRecycleViewAdapter adapter = new EarthquakeRecycleViewAdapter(earthquakes);
         recyclerView.setAdapter(adapter);
     }

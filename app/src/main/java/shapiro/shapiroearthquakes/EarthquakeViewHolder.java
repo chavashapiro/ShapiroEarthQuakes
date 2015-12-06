@@ -15,8 +15,8 @@ public class EarthquakeViewHolder extends RecyclerView.ViewHolder{
         place = (TextView) itemView.findViewById(R.id.place);
     }
 
-    public void bind(Feature feature) {
-        magnitude.setText(String.valueOf(feature.getProperties().getMagnitude()));
-        place.setText(feature.getProperties().getPlace());
+    public void bind(Earthquake feature, int position) {
+        magnitude.setText(position+1  + ". Magnitude: " + String.valueOf(feature.getProperties().getMag()));
+        place.setText("Place: " + feature.getProperties().getPlace());
     }
 }

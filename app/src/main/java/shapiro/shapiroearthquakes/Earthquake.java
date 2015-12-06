@@ -1,11 +1,9 @@
 package shapiro.shapiroearthquakes;
 
 public class Earthquake {
+    private Properties properties;
 
-    private Features features;
-
-    public Features getFeatures() {
-        return features;
+    public Properties getProperties() {
+        return properties;
     }
-
 }
